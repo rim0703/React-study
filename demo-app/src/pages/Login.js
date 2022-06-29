@@ -25,16 +25,17 @@ const Login = () => {
   return (
     <Row>
       <Col xs={0} md={0}></Col>
-      <Col xs={0} md={5}>
-        <Card body style={{ marginTop: "20rem", borderRadius: "10px" }}>
+      <Col xs={0} md={{span:5, offset:0}}>
+        <Card body style={{ marginTop: "10rem", borderRadius: "10px" }}>
             <center>
           <h3>관리자 페이지에 로그인하세요</h3></center>
+          <br></br>
           <LoginForm
             ID={ID}
             password={password}
             // showAuthCode={false}
             handleID={handleID}
-            handlePasswo={handlePassword}
+            handlePassword={handlePassword}
             handleSubmit={handleSubmit}
             // handleCode={handleCode}
           />

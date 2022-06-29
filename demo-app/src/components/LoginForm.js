@@ -44,21 +44,19 @@ const LoginForm = (props) => {
           <Col>
             <Form.Control
                 type="text"
-                placeholder=""
+                // placeholder="아이디를 입력하세요"
                 value={props.ID}
                 onChange={props.handleID}
             />
           </Col>
           </Row>
 
-          <br></br>
-
           <Row>
             <Form.Label>비밀번호</Form.Label>
             <Col>
             <Form.Control
                 type="password"
-                // placeholder="Password"
+                // placeholder="비밀번호를 입력하세요"
                 value={props.password}
                 onChange={props.handlePassword}
             />
