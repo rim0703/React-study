@@ -5,42 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>메뉴판</title>
     <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js"></script>
   </head>
   <body>
     <header>
-      <h1>우리 식당 메뉴</h1>
+      <h1>맥도날드 메뉴판</h1>
     </header>
-
-    <section class="menu-section">
-      <h2>음료</h2>
-      <div class="menu-item">
-        <span>아메리카노</span>
-        <span class="price">3,000원</span>
+    <div class="menu-container">
+      <div class="menu-buttons">
+        <button onclick="showMenu('all')">전체메뉴</button>
+        <button onclick="showMenu('burgers')">버거</button>
+        <button onclick="showMenu('chicken')">치킨</button>
+        <button onclick="showMenu('sides')">사이드</button>
+        <button onclick="showMenu('drinks')">음료</button>
+        <button onclick="showMenu('desserts')">디저트</button>
       </div>
-      <div class="menu-item">
-        <span>카페라떼</span>
-        <span class="price">3,500원</span>
-      </div>
-      <div class="menu-item">
-        <span>녹차</span>
-        <span class="price">2,500원</span>
-      </div>
-    </section>
-
-    <section class="menu-section">
-      <h2>음식</h2>
-      <div class="menu-item">
-        <span>김치찌개</span>
-        <span class="price">7,000원</span>
-      </div>
-      <div class="menu-item">
-        <span>비빔밥</span>
-        <span class="price">8,000원</span>
-      </div>
-      <div class="menu-item">
-        <span>제육볶음</span>
-        <span class="price">9,000원</span>
-      </div>
-    </section>
+      
+      <h2 id="category-title"></h2>
+      <section id="menu-item" class="menu-section">
+        <div class="menu-item"></div>
+      </section>
+    </div>
   </body>
+
+  <footer>이미지 출처: 맥도날드 공홈</footer>
 </html>
