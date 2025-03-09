@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>비밀번호 생성</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>비밀번호 생성하기</h1>
+
+      <div class="result">
+        <input
+          type="text"
+          id="password"
+          placeholder="클릭해서 비밀번호를 복사합니다."
+          readonly
+        />
+      </div>
+
+      <label for="length">비밀번호 길이:</label>
+      <input type="number" id="length" min="5" max="70" />
+
+      <div class="options">
+        <p>포함할 문자:</p>
+        <label><input type="checkbox" id="numbers" /> Numbers (0-9)</label>
+        <label
+          ><input type="checkbox" id="smallLetters" /> Small Letters
+          (a-z)</label
+        >
+        <label
+          ><input type="checkbox" id="capitalLetters" /> Capital Letters
+          (A-Z)</label
+        >
+        <label
+          ><input type="checkbox" id="symbols" /> Symbols (@,!,#,$,&,%)</label
+        >
+      </div>
+      <button id="generateBtn">생성하기</button>
+      <div class="guideline-card">
+        <li>포함할 문자 타입을 1개이상 선택합니다.</li>
+        <li>최소 길이는 5, 최대 길이는 70입니다.</li>
+        <li>강력한 비밀번호는 10~16자여야 합니다.</li>
+      </div>
+    </div>
+  </body>
+</html>
