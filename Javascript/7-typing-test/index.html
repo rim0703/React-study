@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typing Test</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="status">
+        Time
+        <div id="timer">20s</div>
+      </div>
+      <div id="results">
+        <div class="result-card accuracy">
+          <div class="result-title">Accuracy</div>
+          <div id="accuracy" class="result-value">100%</div>
+        </div>
+        <div class="result-card mistakes">
+          <div class="result-title">Mistakes</div>
+          <div id="error-count" class="result-value">0</div>
+        </div>
+      </div>
+
+      <div id="text-to-type">[입력할 문장이 여기에 출력됩니다]</div>
+
+      <textarea
+        id="input-field"
+        placeholder="여기에 타이핑을 하세요."
+        onfocus="startTest()"
+        oninput="checkTyping()"
+        onkeydown="handleEnter(event)"
+      ></textarea>
+    </div>
+  </body>
+</html>
