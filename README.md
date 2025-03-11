@@ -8,3 +8,4 @@
 - [미션4. book-list: 책 목록 추가/수정/삭제 가능한 목록 만들기](https://rim0703.github.io/React-study/Javascript/4-book-list)
 - [미션5. github-finder: Github 사용자 이름을 검색해서 해당 사용자 정보를 보여주는 사이트](https://rim0703.github.io/React-study/Javascript/5-github-finder)
 - [미션6. password-generator: 사용자가 비밀번호 길이를 입력하고 패턴을 설정하면 랜덤으로 비밀번호를 생성하는 사이트](https://rim0703.github.io/React-study/Javascript/6-pw-generator)
+- [미션7. typing-test: 영문 타이핑 속도 측정](https://rim0703.github.io/React-study/Javascript/7-typing-test)
