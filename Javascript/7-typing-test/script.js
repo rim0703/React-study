@@ -93,7 +93,10 @@ function checkTyping() {
   errorCount = incorrect;
   correctCount = correct;
 
-  let accuracy = Math.round((correct / (correct + incorrect)) * 100);
+  let accuracy = 100;
+  if (correct !== 0 && incorrect !== 0) {
+    accuracy = Math.round((correct / (correct + incorrect)) * 100);
+  }
 
   errorCountElement.textContent = `${errorCount}`;
   accuracyElement.textContent = `${accuracy}%`;
@@ -124,6 +127,8 @@ function calculateResults() {
   const wpm = (totalTypedWords / totalTimeInMinutes).toFixed(2);
   const cpm = (totalTypedCharacters / totalTimeInMinutes).toFixed(2);
 
+  totalCorrect += correctCount;
+  totalError += errorCount;
   const accuracy = Math.round(
     (totalCorrect / (totalCorrect + totalError)) * 100
   );
@@ -140,5 +145,8 @@ function calculateResults() {
       <div class="result-title">CPM</div>
       <div class="result-value">${Math.floor(cpm)}</div>
     </div>
+  `;
+  document.getElementById("text-to-type").innerHTML = `
+  <button onClick="window.location.reload()">다시 시작</button>
   `;
 }
