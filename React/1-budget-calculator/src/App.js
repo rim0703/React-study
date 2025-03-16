@@ -60,7 +60,7 @@ export default function ExpenseTracker() {
   const clearAllExpenses = () => {
     setExpenses([]);
     setTotal(0);
-    toast.info("All expenses cleared.");
+    toast.info("항목을 모두 삭제하였습니다.");
   };
 
   return (
