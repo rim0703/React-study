@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function HeaderNavi() {
+  const [count, setCount] = useState(0);
   const navigate = useNavigate();
+
+  const checkCartStatus = () => {
+    if (localStorage.getItem("cart")) {
+      setCount(JSON.parse(localStorage.getItem("cart")).length);
+    } else {
+      setCount(0);
+    }
+  };
+  useEffect(() => {
+    checkCartStatus();
+  }, [localStorage.getItem("cart")]);
 
   return (
     <div>
@@ -12,7 +24,7 @@ export default function HeaderNavi() {
       >
         <div className="flex items-center flex-shrink-0 mr-6">
           <svg
-            class="w-6 h-6 text-gray-800"
+            className="w-6 h-6 text-gray-800"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -36,19 +48,14 @@ export default function HeaderNavi() {
 
         <button
           type="button"
-          class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 text-center inline-flex"
+          className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 text-center inline-flex"
           onClick={() => {
             navigate("/cart");
           }}
         >
-          장바구니{" "}
-          {localStorage.getItem("cart")
-            ? JSON.parse(localStorage.getItem("cart"))?.length != 0
-              ? JSON.parse(localStorage.getItem("cart"))?.length
-              : ""
-            : ""}
+          장바구니 {count === 0 ? "" : count}
           <svg
-            class="w-6 h-6 text-gray-800 "
+            className="w-6 h-6 text-gray-800 "
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"

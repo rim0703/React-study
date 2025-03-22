@@ -12,7 +12,7 @@ function MenuList() {
   return (
     <div className="">
       <SubMenu selectCategory={selectCategory} />
-      <MenuCard />
+      <MenuCard selected={category} />
     </div>
   );
 }

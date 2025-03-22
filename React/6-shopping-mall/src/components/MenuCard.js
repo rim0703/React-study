@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function MenuCard() {
-  const [category, setCategory] = useState("all");
+export default function MenuCard({ selected }) {
+  const [category, setCategory] = useState(selected);
+  console.log(selected);
 
   const Dummy = {
     burgers: [
@@ -81,27 +82,60 @@ export default function MenuCard() {
   };
 
   const menuCategory = ["burgers", "chicken", "sides", "drinks", "desserts"];
+  const translate = {
+    burgers: "버거",
+    chicken: "치킨",
+    sides: "사이드",
+    drinks: "음료",
+    desserts: "디저트",
+  };
 
   return (
     <>
       <div class="menu-container">
-        <h2 id="category-title">{category === "all" ? "전체메뉴" : ""}</h2>
-
-        {menuCategory.map((menuCate) =>
-          Dummy[menuCate].map((item, index) => (
-            <Link to={`/${menuCate}/${index}`}>
-              <section id="menu-item" class="menu-section mx-auto">
-                <div class="menu-item">
-                  <img src={item.image} />
-                  <div>
-                    <div class="menu-name">{item.name}</div>
-                    <div class="menu-price">{item.price}원</div>
-                    <div class="menu-description">{item.description}</div>
-                  </div>
-                </div>
-              </section>{" "}
-            </Link>
-          ))
+        <h2 id="category-title">
+          {selected === "all" ? "전체메뉴" : translate[selected]}
+        </h2>
+        {selected === "all" ? (
+          <>
+            {menuCategory.map((menuCate) =>
+              Dummy[menuCate].map((item, index) => (
+                <>
+                  <Link to={`/${menuCate}/${index}`}>
+                    <section id="menu-item" class="menu-section mx-auto">
+                      <div class="menu-item">
+                        <img src={item.image} />
+                        <div>
+                          <div class="menu-name">{item.name}</div>
+                          <div class="menu-price">{item.price}원</div>
+                          <div class="menu-description">{item.description}</div>
+                        </div>
+                      </div>
+                    </section>
+                  </Link>
+                </>
+              ))
+            )}{" "}
+          </>
+        ) : (
+          <>
+            {Dummy[selected].map((item, index) => (
+              <>
+                <Link to={`/${selected}/${index}`}>
+                  <section id="menu-item" class="menu-section mx-auto">
+                    <div class="menu-item">
+                      <img src={item.image} />
+                      <div>
+                        <div class="menu-name">{item.name}</div>
+                        <div class="menu-price">{item.price}원</div>
+                        <div class="menu-description">{item.description}</div>
+                      </div>
+                    </div>
+                  </section>
+                </Link>
+              </>
+            ))}
+          </>
         )}
       </div>
     </>

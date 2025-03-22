@@ -1,66 +1,168 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Cart() {
-  let cartItem;
-  if (localStorage.getItem("cart")) {
-    cartItem = JSON.parse(localStorage.getItem("cart"));
-  } else {
-    localStorage.setItem("cart", []);
-  }
+  const [total, setTotal] = useState(0);
+  const [cartItem, setCartItem] = useState(null);
+
+  const checkCartStatus = () => {
+    if (localStorage.getItem("cart")) {
+      setCartItem(JSON.parse(localStorage.getItem("cart")));
+    } else {
+      localStorage.setItem("cart", []);
+    }
+  };
+
+  const calculateTotal = () => {
+    let currentPrice = 0;
+    cartItem?.forEach((item) => {
+      const itemTotalPrice = item.count * item.price;
+      currentPrice += itemTotalPrice;
+    });
+    setTotal(currentPrice);
+  };
+
+  const changeQuantity = (type, item) => {
+    if (type === "add") {
+      if (item.count === 99) return;
+      cartItem.forEach((cart) => {
+        if (cart.name === item.name) cart.count++;
+      });
+    } else {
+      if (item.count === 1) return;
+      cartItem.forEach((cart) => {
+        if (cart.name === item.name) cart.count--;
+      });
+    }
+    localStorage.setItem("cart", JSON.stringify(cartItem));
+    calculateTotal();
+  };
+
+  const removeItem = (item) => {
+    // console.log("delete", item);
+    // let tempCartList = [];
+    // cartItem.map((cart) => {
+    //   console.log(cart);
+    //   if (cart.name != item.name) {
+    //     tempCartList.push(item);
+    //   }
+    // });
+    // setCartItem(tempCartList);
+    // console.log(tempCartList);
+    // localStorage.setItem("cart", JSON.stringify(tempCartList));
+    // if (tempCartList.length == 0) localStorage.setItem("cart", []);
+    // calculateTotal();
+  };
+
+  useEffect(() => {
+    checkCartStatus();
+  }, []);
+
+  useEffect(() => {
+    calculateTotal();
+  }, [cartItem]);
 
   return (
-    <div class="h-screen bg-gray-100 pt-20">
-      <h1 class="mb-10 text-center text-2xl font-bold">장바구니</h1>
-      <div class="text-center">
-        {cartItem ? (
+    <div className="h-screen bg-gray-100 pt-20">
+      <h1 className="mb-10 text-center text-2xl font-bold">장바구니</h1>
+      <div className="text-center">
+        {total != 0 ? (
           <>
-            <div role="status">
-              <svg
-                aria-hidden="true"
-                class="inline w-8 h-8 text-gray-200 animate-spin fill-blue-600"
-                viewBox="0 0 100 101"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                  fill="currentFill"
-                />
-              </svg>
-              <span class="sr-only">TODO</span>
-            </div>
-            <h1>장바구니에 담긴 상품은 총{cartItem?.length}개 입니다.</h1>
+            {" "}
+            <>
+              <div className="container mx-auto " style={{ width: "400px" }}>
+                <div className="mt-8">
+                  {cartItem.map((item, index) => (
+                    <div
+                      key={item.image}
+                      className="flex flex-col md:flex-row border-b border-gray-400 py-4"
+                    >
+                      <div className="flex-shrink-0">
+                        <img
+                          src={item.image}
+                          alt="Product image"
+                          className="w-32 h-32 object-cover"
+                        />
+                      </div>
+                      <div
+                        className="mt-4 md:mt-0 md:ml-6"
+                        style={{ marginLeft: "20px", textAlign: "left" }}
+                      >
+                        <h2 className="text-lg font-bold">
+                          {item.name} ({item.price}원)
+                        </h2>
+
+                        <div className="mt-4 flex items-center">
+                          <span className="mr-2 text-gray-600">수량</span>
+                          <div className="flex items-center">
+                            <button
+                              className="bg-gray-200 rounded-l-lg px-2 py-1"
+                              onClick={() => changeQuantity("remove", item)}
+                            >
+                              -
+                            </button>
+                            <span className="mx-2 text-gray-600">
+                              {item.count}
+                            </span>
+                            <button
+                              className="bg-gray-200 rounded-r-lg px-2 py-1"
+                              onClick={() => changeQuantity("add", item)}
+                            >
+                              +
+                            </button>
+                          </div>
+                          <span
+                            className="ml-auto font-bold"
+                            style={{ marginLeft: "20px" }}
+                          >
+                            {item.price * item.count}원
+                            <svg
+                              className="w-5 h-5 text-gray-800"
+                              aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              style={{ display: "inline" }}
+                              onClick={() => {
+                                removeItem(item);
+                              }}
+                            >
+                              <path
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex justify-end items-center mt-8">
+                  <span className="text-gray-600 mr-4">총:</span>
+                  <span className="text-xl font-bold">{total}원</span>
+                </div>
+                <button
+                  className="bg-blue-300 hover:bg-blue-500 text-white font-bold py-1 px-3 rounded-full"
+                  onClick={() => {
+                    localStorage.removeItem("cart");
+                    window.location.reload();
+                  }}
+                >
+                  장바구니 비우기
+                </button>
+              </div>{" "}
+            </>
           </>
         ) : (
           <h1>장바구니에 담긴 상품이 없습니다.</h1>
         )}
-
-        {cartItem ? (
-          <button
-            type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            onClick={() => {
-              localStorage.removeItem("cart");
-              window.location.reload();
-            }}
-          >
-            장바구니 비우기
-          </button>
-        ) : (
-          ""
-        )}
       </div>
-      {/* {cartItem.map((item) => (
-        <>
-          <h3>
-            {item.name} {item.count}
-          </h3>
-        </>
-      ))} */}
     </div>
   );
 }
